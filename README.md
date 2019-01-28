@@ -1,30 +1,36 @@
-# lw-oa
+# lw-oa: 在线文档管理(企业版)
 
 #### 更新记录
+
 2019-1-26 
+
 	1.适配手机端
 	2.文件上传获取不到项目路径问题
 	3.表单提交中文数据库乱码问题
 	4.手机端下载tomcat报错（未解决）
 
 2018-1-27
+
 	1. 设置文件查看权限	
 
 
 #### 介绍
-{**以下是码云平台说明，您可以替换此简介**
-码云是开源中国推出的基于 Git 的代码托管平台（同时支持 SVN）。专为开发者提供稳定、高效、安全的云端软件开发协作平台
-无论是个人、团队、或是企业，都能够用码云实现代码托管、项目管理、协作开发。企业项目请看 [https://gitee.com/enterprises](https://gitee.com/enterprises)}
+项目缘由：有个朋友说他们公司文档管理不规范，报价单改来改去也不知道是不是最新的，最后给客户出现多个报价单的情况，所以才有了这个项目
+项目功能：
+1. 人员管理：支持管理员后台新增，删除，编辑人员；设置账号状态：启用或禁用；并且可设置人员权限：管理员和普通员工
+2. 我的文档：管理员才有权限进入我的文档，支持上传，下载，删除，授权哪些用户可查看。支持查询不分页
+3. 文档下载：所有人都有的权限，只有你被赋值了文件查看权限，才能看到哪些你可以看到，并且下载.。支持查询不分页
 
 #### 软件架构
-软件架构说明
+Springboot 1.5.10 + JdbcTemplate + Mybatis + Amazeui
+个人觉得使用jdbctemplate开始简单，但是对于功能稍微复杂系统来说，有点繁琐，SQL维护起来有点困难，在分支mybatis里面会替换掉
 
 
 #### 安装教程
 
-1. xxxx
-2. xxxx
-3. xxxx
+1. maven install
+2. java -jar lw-springboot-oa-1.0-SNAPSHOT.war
+3. 日志路径：C:/logs/lw-oa/lw-oa.log
 
 #### 使用说明
 
@@ -32,19 +38,3 @@
 2. xxxx
 3. xxxx
 
-#### 参与贡献
-
-1. Fork 本仓库
-2. 新建 Feat_xxx 分支
-3. 提交代码
-4. 新建 Pull Request
-
-
-#### 码云特技
-
-1. 使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2. 码云官方博客 [blog.gitee.com](https://blog.gitee.com)
-3. 你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解码云上的优秀开源项目
-4. [GVP](https://gitee.com/gvp) 全称是码云最有价值开源项目，是码云综合评定出的优秀开源项目
-5. 码云官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6. 码云封面人物是一档用来展示码云会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
