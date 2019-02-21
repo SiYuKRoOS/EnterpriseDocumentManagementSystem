@@ -34,7 +34,7 @@
 			if($(this).prop("checked")){
                 var username = $("#username").val();
                 var password = $("#password").val();
-                alert(username+", "+password)
+                //alert(username+", "+password)
 
                 $.cookie("remember","true",{expires:7});
                 $.cookie("username",username,{expires:7 });

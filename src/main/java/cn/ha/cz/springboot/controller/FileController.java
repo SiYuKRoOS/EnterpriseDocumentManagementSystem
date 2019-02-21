@@ -196,6 +196,9 @@ public class FileController {
 			UserBean user = (UserBean) session.getAttribute("user");
 
 			String saveFileName = file.getOriginalFilename();
+		    String systemName = request.getHeader("user-agent");
+		    logger.info("===>upload: {},{}", systemName, saveFileName);
+		    
 			String fullPath = uploadFolder + saveFileName;
 			logger.info("===>{}", fullPath);
 			
@@ -225,9 +228,10 @@ public class FileController {
 				fileBean.setFilesize(filesize);
 
 				fileBean.setFiletype(EnumFileType.getBySuffix(suffix));
-				logger.info("插入文件表：{}", fileBean);
+				logger.info("===>插入文件表：{}", fileBean);
 				fileService.uploadFile(fileBean, user);
 
+				logger.info("===>上传成功: {}", fileBean);
 				return "1";
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -238,6 +242,7 @@ public class FileController {
 
 	@RequestMapping("download")
 	public void download(@RequestParam int fileId, HttpServletRequest request, HttpServletResponse response) {
+		logger.info("===>下载文件：{}", fileId);
 		FileBean fileBean = fileDao.queryById(fileId);
 		BufferedInputStream bis = null;
 		BufferedOutputStream bos = null;
@@ -276,7 +281,7 @@ public class FileController {
 				// 关闭流
 				bis.close();
 				bos.close();
-
+				logger.info("===>下载成功");
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
