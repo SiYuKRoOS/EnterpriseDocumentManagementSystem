@@ -1,7 +1,5 @@
 package cn.ha.cz.springboot.controller;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.log;
-
 import java.util.Date;
 
 import javax.servlet.http.HttpSession;
@@ -14,7 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.ha.cz.springboot.bean.EnumFileType;
@@ -76,7 +73,7 @@ public class FolderController {
 			file.setRemark(folderName);
 			fileDao.updateName(file);
 		}else{
-			logger.info("文件不支持重命名");
+			logger.warn("文件不支持重命名");
 		}
 		
 	}

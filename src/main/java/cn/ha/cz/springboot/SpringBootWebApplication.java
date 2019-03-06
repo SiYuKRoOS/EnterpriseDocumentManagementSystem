@@ -3,6 +3,7 @@ package cn.ha.cz.springboot;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -11,6 +12,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import cn.ha.cz.springboot.interceptor.LoginInterceptor;
 
 @SpringBootApplication
+@ServletComponentScan //扫描druidServlet
 @Configuration
 public class SpringBootWebApplication extends WebMvcConfigurerAdapter {
 

@@ -37,6 +37,12 @@ $(function(){
 .am-form-group:hover {
 	cursor: pointer;
 }
+.tpl-table-black-operation a {
+	width: 55px;
+}
+.tpl-table-black-operation a:HOVER {
+	cursor: pointer;
+}
 </style>
 </head>
 
@@ -57,6 +63,22 @@ $(function(){
         <div class="am-modal-bd">
           <input type="text" class="am-modal-prompt-input" name="newFileName">
           <input type="hidden" value="${folder.id }" id="hiddenFolderId">
+        </div>
+        <div class="am-modal-footer">
+          <span class="am-modal-btn" data-am-modal-confirm>提交</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="am-modal am-modal-prompt" tabindex="-1" id="rename-prompt">
+      <div class="am-modal-dialog">
+        <div class="am-modal-hd">
+          文件夹重命名
+          <a href="javascript:void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
+        </div>
+        <div class="am-modal-bd">
+          <input type="hidden" class="am-modal-prompt-input" id="folderId">
+          <input type="text" class="am-modal-prompt-input" id="folderName">
         </div>
         <div class="am-modal-footer">
           <span class="am-modal-btn" data-am-modal-confirm>提交</span>
@@ -119,44 +141,44 @@ $(function(){
                   <input type="hidden" name="folderId" value="${folder.id}">
                 </form>
                 <script type="text/javascript">
-									$(function() {
-									    $('#uploadBtn').click(function(){
-									        $('#fileUpload').click();
-									    });
+					$(function() {
+					    $('#uploadBtn').click(function(){
+					        $('#fileUpload').click();
+					    });
 
-										var uploading = false;
-										var imgFile = []; //存放文件
-										$("#fileUpload").on("change", function() {
-											if (uploading) {
-												alert("文件正在上传中，请稍候");
-												return false;
-											}
-											
-											$.ajax({
-												url : "<%=request.getContextPath()%>/file/upload",
-												type : 'POST',
-												data : new FormData($('#fileUploadForm')[0]), //单文件
-												//data: formData, //多文件
-												
-												processData : false,
-												contentType : false,
-												beforeSend : function() {
-													uploading = true;
-												},
-												success : function(data) {
-													if ("1" == data) {
-														alert("上传成功");
-													} else {
-														alert("上传失败");
-													}
-						
-													uploading = false;
-													window.location.reload();
-												}
-											});
-										});
-									});
-								</script>
+						var uploading = false;
+						var imgFile = []; //存放文件
+						$("#fileUpload").on("change", function() {
+							if (uploading) {
+								alert("文件正在上传中，请稍候");
+								return false;
+							}
+							
+							$.ajax({
+								url : "<%=request.getContextPath()%>/file/upload",
+								type : 'POST',
+								data : new FormData($('#fileUploadForm')[0]), //单文件
+								//data: formData, //多文件
+								
+								processData : false,
+								contentType : false,
+								beforeSend : function() {
+									uploading = true;
+								},
+								success : function(data) {
+									if ("1" == data) {
+										alert("上传成功");
+									} else {
+										alert("上传失败");
+									}
+		
+									uploading = false;
+									window.location.reload();
+								}
+							});
+						});
+					});
+				</script>
               </div>
               <form action="<%=request.getContextPath() %>/file/search?from=${from}" method="post">
                 <div class="widget-body am-u-sm-12">
@@ -236,10 +258,12 @@ $(function(){
                                     </c:otherwise>
                                   </c:choose>
                                   <c:if test="${from == 'upload'}">
+                                    <c:if test="${file.filetype == EnumFileType.FOLFER}">
                                     <a data-toggle='modal' data-target='#rename-prompt' onclick="rename(${file.id})" style="width: 68px">
                                       <i class="am-icon-edit"></i>
                                       重命名
                                     </a>
+                                    </c:if>
                                     <a href="javascript:;" onclick="confirmDel(${file.id},'${file.filename }')" class="tpl-table-black-operation-del">
                                       <i class="am-icon-trash"></i>
                                       删除
@@ -303,8 +327,43 @@ $(function(){
 						});
 				      }
 			    });
-			  });
+			});
+			 
+			$("#rename-prompt").on("closed.modal.amui", function() {
+				 console.log("removeData:amui.modal")
+		         $(this).removeData("amui.modal");
+		    });
+			 
+			 //重写confirm事件，默认会重复提交
+			 var $confirmBtn = $("#rename-prompt").find('[data-am-modal-confirm]');
+			 $confirmBtn.off('click.confirm.modal.amui').on('click', function() {
+				console.log("onConfirm: "+$("#folderId").val()+":"+$("#folderName").val());
+		        $.ajax({
+					url : "<%=request.getContextPath()%>/folder/renameFolder",
+					type : 'POST',
+					data : {folderId:$("#folderId").val(),folderName:$("#folderName").val()},
+					success : function(data) {
+						alert("修改成功")
+						window.location.reload();
+					}
+				});
+			 });
 		})
+		
+		function rename(folderId){
+			 var url = "<%=request.getContextPath()%>/folder/getFolder?folderId="+folderId;
+			 //console.log(url);
+			 $.ajax({
+				url : url,
+				type : 'POST',
+				success : function(data) {
+					$("#folderId").val(data.id);
+					$("#folderName").val(data.remark);
+					
+					$("#rename-prompt").modal();
+				}
+			})
+		}
 	
 		function confirmDel(fileId, filename){
 			if(confirm('是否确认删除此文档？\n'+filename)){

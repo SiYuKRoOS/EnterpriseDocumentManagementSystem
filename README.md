@@ -29,6 +29,10 @@
 2019-3-7 计划
 	
 	1. 提取JSP共同代码块进行单独维护，权限抽离
+	2. 考虑文件夹移动
+	3. SpringBoot之使用Druid连接池以及SQL监控和spring监控: https://www.cnblogs.com/shyroke/p/8045077.html
+	   druid不同版本，SQL监控会没有SQL打印
+	4. 
 
 #### 介绍
 项目由来：

@@ -185,11 +185,16 @@ public class FileController {
 	
 	@RequestMapping("authUser")
 	@ResponseBody
-	public int authUser(@RequestParam Integer[] userIds, @RequestParam int fileId,HttpSession session, Model model) {
+	public int authUser(@RequestParam(required=false) Integer[] userIds, @RequestParam int fileId,HttpSession session, Model model) {
 		logger.info("===>authUser: {},{}", fileId, userIds);
 		int flag = 1;
+		
+		//如果没有选择人代表可能是取消授权
 		if(userIds ==null || userIds.length==0) {
-			flag = 2;
+			FileAuth params = new FileAuth();
+			params.setAuthFileId(fileId);
+			fileAuthDao.deleteFileAuth(params);
+			flag = 1;
 		}else {
 			UserBean sessionUser = (UserBean) session.getAttribute("user");
 			FileAuth params = new FileAuth();

@@ -45,8 +45,8 @@
 								<div class="widget-function am-fr">
 									<div class="am-btn-group am-btn-group-xs">
 										<a href="javascript:;" id="userAuthBtn" class="am-btn am-btn-default am-btn-success" style="color: #fff">
-											<span class="am-icon-plus"></span>
-											提交
+											<span class="am-icon-save"></span>
+											保存
 										</a>
 									</div>
 									<div class="am-btn-group am-btn-group-xs">
@@ -134,17 +134,10 @@
 			})
 			
 			$("#userAuthBtn").click(function(){
-				var userIds = [];
-				$(".checkOne:checked").each(function(i) {
-					userIds[i] = $(this).val();
-				});
-				console.log(userIds);
-				if(userIds.length==0){
-					alert("请选择人员");
-				}else{
+				
+				var authAjax = function(userIds){
 					$.ajax({
-						url : "<%=request.getContextPath()%>
-		/file/authUser",
+						url : "<%=request.getContextPath()%>/file/authUser",
 						type : 'POST',
 						//它的含义是是否使用传统的方式浅层序列化
 						traditional : true,
@@ -160,6 +153,19 @@
 							}
 						}
 					});
+				}
+				var userIds = [];
+				$(".checkOne:checked").each(function(i) {
+					userIds[i] = $(this).val();
+				});
+				console.log("userIds: "+ userIds);
+				if(userIds.length==0){
+					//alert("请选择人员");
+					if(confirm("未选择人员，是否确认提交 ?")){
+						authAjax(userIds);
+					}
+				}else{
+					authAjax(userIds);
 				}
 			})
 		})
