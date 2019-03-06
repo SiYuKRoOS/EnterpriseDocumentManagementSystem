@@ -243,10 +243,12 @@ $(function(){
                                   </c:choose>
 
                                   <c:if test="${from == 'upload'}">
+                                    <c:if test="${file.filetype == EnumFileType.FOLFER}">
                                     <a data-toggle='modal' data-target='#rename-prompt' onclick="rename(${file.id})" style="width: 68px">
                                       <i class="am-icon-edit"></i>
                                       重命名
                                     </a>
+                                    </c:if>
                                     <a href="javascript:;" onclick="confirmDel(${file.id},'${file.filename }')" class="tpl-table-black-operation-del">
                                       <i class="am-icon-trash"></i>
                                       删除
