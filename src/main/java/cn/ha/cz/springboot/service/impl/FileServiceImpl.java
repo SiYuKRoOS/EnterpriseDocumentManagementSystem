@@ -1,6 +1,7 @@
 package cn.ha.cz.springboot.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,16 +35,16 @@ public class FileServiceImpl implements IFileService {
 	}
 
 	@Override
-	public List<FileBean> searchFileList(UserBean user, String filename, int filetype) {
+	public List<FileBean> searchFileList(UserBean user, String filename, int filetype, Integer parentId) {
 		// 如果是普通员工，只能看自己的
 		// && user.getLevelEnum() == EnumUserLevel.GENERAL
 		if (user != null) {
-			return fileDao.searchFileList(user.getId(), filename, filetype);
+			return fileDao.searchFileList(user.getId(), filename, filetype, parentId);
 		} else {
-			return fileDao.searchFileList(null, filename, filetype);
+			return fileDao.searchFileList(null, filename, filetype, parentId);
 		}
 	}
-
+	
 	@Override
 	public void uploadFile(FileBean uploadFile, UserBean uploadUser) {
 		int fileId = fileDao.insertFile(uploadFile);

@@ -4,79 +4,33 @@ import java.util.Date;
 
 /**
  * 上传文件
+ * 
  * @author Administrator
  *
  */
 public class FileBean {
 
-	int id;
+	Integer id;
 	String filename;
 	String filepath;
 	String fullpath;
 	String qiniuUrl;
-	int flag;
+	Integer flag;
 	String remark;
 	EnumFileType filetype;
 	Date uploadtime;
-	
+	Integer parentid;
+
 	String username;
-	int userId ;
-	
+	Integer userId;
+
 	String filesize;
 
-	public String getFilesize() {
-		return filesize;
-	}
-
-	public void setFilesize(String filesize) {
-		this.filesize = filesize;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public int getUserId() {
-		return userId;
-	}
-
-	public void setUserId(int userId) {
-		this.userId = userId;
-	}
-
-	public Date getUploadtime() {
-		return uploadtime;
-	}
-
-	public void setUploadtime(Date uploadtime) {
-		this.uploadtime = uploadtime;
-	}
-
-	public EnumFileType getFiletype() {
-		return filetype;
-	}
-
-	public void setFiletype(EnumFileType filetype) {
-		this.filetype = filetype;
-	}
-
-	public String getRemark() {
-		return remark;
-	}
-
-	public void setRemark(String remark) {
-		this.remark = remark;
-	}
-
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -112,19 +66,78 @@ public class FileBean {
 		this.qiniuUrl = qiniuUrl;
 	}
 
-	public int getFlag() {
+	public Integer getFlag() {
 		return flag;
 	}
 
-	public void setFlag(int flag) {
+	public void setFlag(Integer flag) {
 		this.flag = flag;
+	}
+
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+
+	public EnumFileType getFiletype() {
+		return filetype;
+	}
+
+	public void setFiletype(EnumFileType filetype) {
+		this.filetype = filetype;
+	}
+
+	public Date getUploadtime() {
+		return uploadtime;
+	}
+
+	public void setUploadtime(Date uploadtime) {
+		this.uploadtime = uploadtime;
+	}
+
+	public Integer getParentid() {
+		return parentid;
+	}
+
+	public void setParentid(Integer parentid) {
+		this.parentid = parentid;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public Integer getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
+
+	public String getFilesize() {
+		return filesize;
+	}
+
+	public void setFilesize(String filesize) {
+		this.filesize = filesize;
 	}
 
 	@Override
 	public String toString() {
-		return "FileBean [id=" + id + ", filename=" + filename + ", filepath=" + filepath + ", fullpath=" + fullpath
-				+ ", qiniuUrl=" + qiniuUrl + ", flag=" + flag + ", remark=" + remark + ", filetype=" + filetype
-				+ ", uploadtime=" + uploadtime + ", username=" + username + ", userId=" + userId + "]";
+		return "FileBean [id=" + id + ", filename=" + filename + ", filepath="
+				+ filepath + ", fullpath=" + fullpath + ", qiniuUrl="
+				+ qiniuUrl + ", flag=" + flag + ", remark=" + remark
+				+ ", filetype=" + filetype + ", uploadtime=" + uploadtime
+				+ ", parentid=" + parentid + ", username=" + username
+				+ ", userId=" + userId + ", filesize=" + filesize + "]";
 	}
 
 }

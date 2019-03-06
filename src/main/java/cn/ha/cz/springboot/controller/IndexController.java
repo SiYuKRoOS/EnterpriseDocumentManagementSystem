@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import cn.ha.cz.springboot.bean.EnumFileType;
+import cn.ha.cz.springboot.bean.EnumUserLevel;
 import cn.ha.cz.springboot.bean.UserBean;
 import cn.ha.cz.springboot.service.IFileService;
 
@@ -29,8 +30,11 @@ public class IndexController {
 	}
 	
 	@RequestMapping
-	public String toIndex() {
-		
+	public String toIndex(HttpSession session) {
+		UserBean userBean = (UserBean) session.getAttribute("user");
+		if(userBean.getLevelEnum()==EnumUserLevel.GENERAL){
+			return "redirect:/file/downloadlist";
+		}
 		return "redirect:/file/uploadlist";
 	}
 }

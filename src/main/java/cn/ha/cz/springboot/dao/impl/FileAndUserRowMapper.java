@@ -33,6 +33,7 @@ public class FileAndUserRowMapper implements RowMapper<FileBean> {
 		bean.setFlag(rs.getInt("flag"));
 		bean.setUploadtime(rs.getTimestamp("uploadtime"));
 		bean.setFilesize(rs.getString("filesize"));
+		bean.setParentid(rs.getInt("parentid"));
 
 		// 关联表字段
 		bean.setUserId(rs.getInt("user_id"));

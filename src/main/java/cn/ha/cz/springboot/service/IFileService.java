@@ -9,7 +9,7 @@ import cn.ha.cz.springboot.bean.UserBean;
 public interface IFileService {	
 	List<FileBean> queryFileList(UserBean user);
 	
-	List<FileBean> searchFileList(UserBean user, String filename, int filetype );
+	List<FileBean> searchFileList(UserBean user, String filename, int filetype, Integer parentId);
 	
 	void uploadFile(FileBean uploadFile, UserBean uploadUser);
 	

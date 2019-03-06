@@ -1,5 +1,11 @@
 package cn.ha.cz.springboot.bean;
 
+/**
+ * 用户操作
+ * 
+ * @author Administrator
+ *
+ */
 public enum EnumUserOperation {
 
 	UPLOAD(1, "上传"), DOWNLOAD(2, "下载"), DELETE(3, "删除");

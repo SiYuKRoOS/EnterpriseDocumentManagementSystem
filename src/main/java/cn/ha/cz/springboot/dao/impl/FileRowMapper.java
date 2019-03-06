@@ -1,7 +1,6 @@
 package cn.ha.cz.springboot.dao.impl;
 
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
 import org.springframework.jdbc.core.RowMapper;
@@ -25,6 +24,7 @@ public class FileRowMapper implements RowMapper<FileBean> {
 		bean.setFlag(rs.getInt("flag"));
 		bean.setUploadtime(rs.getTimestamp("uploadtime"));
 		bean.setFilesize(rs.getString("filesize"));
+		bean.setParentid(rs.getInt("parentid"));
 
 		return bean;
 	}

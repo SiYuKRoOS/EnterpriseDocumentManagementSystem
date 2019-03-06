@@ -1,7 +1,14 @@
 package cn.ha.cz.springboot.bean;
 
+/**
+ * 文件类型枚举类
+ * 
+ * @author Administrator
+ *
+ */
 public enum EnumFileType {
-	EXCEL(1, "EXCEL"), WORD(2, "WORD"), PPT(3, "PPT"), PDF(4, "PDF"), PIC(5, "PIC"), ZIP(6, "ZIP"), OTHRER(10, "其他");
+	//EXCEL(1, "EXCEL"), WORD(2, "WORD"), PPT(3, "PPT"), PDF(4, "PDF"), PIC(5, "PIC"), ZIP(6, "ZIP"), OTHRER(10, "其他"), FOLFER(11, "文件夹");
+	EXCEL(1, "EXCEL"), WORD(2, "WORD"), PPT(3, "PPT"), PDF(4, "PDF"), PIC(5, "图片"), ZIP(6, "压缩包"), OTHRER(10, "未知"), FOLFER(11, "文件夹");
 
 	int id;
 	String name;
@@ -16,7 +23,7 @@ public enum EnumFileType {
 		String zipReg = "^zip|rar|7z|tar|bz2|cab|jar$";
 		String picReg = "^jpg|bmp|png|psd|jpeg$";
 
-		if ("word".equalsIgnoreCase(suffix)) {
+		if ("word".equalsIgnoreCase(suffix) || "doc".equalsIgnoreCase(suffix) || "docx".equalsIgnoreCase(suffix)) {
 			fileType = EnumFileType.WORD;
 		} else if ("ppt".equalsIgnoreCase(suffix)) {
 			fileType = EnumFileType.PPT;
@@ -58,5 +65,11 @@ public enum EnumFileType {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public static void main(String[] args) {
+		
+		System.out.println(EnumFileType.EXCEL==EnumFileType.WORD);
+		System.out.println(EnumFileType.EXCEL==EnumFileType.EXCEL);
 	}
 }

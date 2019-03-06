@@ -16,17 +16,23 @@ public interface IFileDao {
 	List<FileBean> queryFileAll();
 
 	/** 文件查找接口 */
-	List<FileBean> searchFileList(Integer userId, String filename, int filetype);
+	List<FileBean> searchFileList(Integer userId, String filename, int filetype, Integer parentid);
 
 	/** 插入文件信息并返回主键ID */
 	int insertFile(FileBean fileBean);
 
 	/** 根据主键删除文件:逻辑删除，修改状态为2 */
 	int updateFile(FileBean fileBean);
+	
+	int updateName(FileBean fileBean);
 
 	/** 插入用户上传文件关系表 */
 	int insertUserFile(int userId, int fileId);
 
 	int count(Integer... userId);
+	
+	List<FileBean> searchFileListByFolder(int folderId);
+	
+	List<FileBean> searchFileListByFolder(FileBean params);
 	
 }

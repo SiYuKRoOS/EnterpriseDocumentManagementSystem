@@ -29,7 +29,7 @@ public class FileUtils {
 	public static String getFileSize(long fileS) {
 		String size = "0";
 		DecimalFormat df = new DecimalFormat("#.0");
-		if (fileS < 1024) {
+		if (0<fileS && fileS < 1024) {
 			size = df.format((double) fileS) + "BT";
 		} else if (fileS < 1048576) {
 			size = df.format((double) fileS / 1024) + "KB";

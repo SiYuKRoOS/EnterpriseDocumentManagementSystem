@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import cn.ha.cz.springboot.bean.EnumFileType;
 import cn.ha.cz.springboot.bean.FileAuth;
@@ -110,10 +111,31 @@ public class FileController {
 		}
 	}
 
+	/**
+	 * 文件查询接口
+	 * @param filename
+	 * @param filetype
+	 * @param from
+	 * @param folderId （未使用，目前带folderId调用viewFolder接口）
+	 * @param session
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("search")
-	public String search(@RequestParam String filename, @RequestParam int filetype, @RequestParam String from,
-			HttpSession session, Model model) {
+	public String search(@RequestParam String filename, @RequestParam(value="filetype", required=false) Integer filetype, 
+			@RequestParam String from,  @RequestParam(value="folderId", required=false) Integer folderId,
+			HttpSession session, Model model, RedirectAttributes attr) {
 		logger.info("search params :{},{}", filename, filetype);
+		//判断是否是在文件夹中查询
+		if(folderId!=null && folderId>0){
+			attr.addAttribute("filename", filename);
+			attr.addAttribute("filetype", filetype);
+			attr.addAttribute("from", from);
+			attr.addAttribute("folderId", folderId);
+			
+			logger.info("===>redirect:/folder/viewFolder, params:{}", attr.asMap());
+			return "redirect:/folder/viewFolder";
+		}
 		
 		UserBean user = (UserBean) session.getAttribute("user");
 		logger.info("get session user: {}", user);
@@ -121,7 +143,7 @@ public class FileController {
 		List<FileBean> filelist = null;
 		if ("upload".equals(from)) {
 			
-			filelist = fileService.searchFileList(user, filename, filetype);
+			filelist = fileService.searchFileList(user, filename, filetype, folderId);
 			model.addAttribute("filelist", filelist);
 		} else {
 			//查询所有文件
@@ -131,7 +153,7 @@ public class FileController {
 			FileAuth param = new FileAuth();
 			param.setAuthUserId(user.getId());
 			param.setFilename(filename);
-			param.setFiletype(filetype);
+			param.setFiletype(filetype==null?-1:filetype);
 			filelist = fileService.queryAuthFileList(param);
 			model.addAttribute("filelist", filelist);
 		}
@@ -191,7 +213,7 @@ public class FileController {
 
 	@RequestMapping("upload")
 	@ResponseBody
-	public String upload(@RequestParam("file") MultipartFile file, HttpServletRequest request, HttpSession session) {
+	public String upload(@RequestParam("file") MultipartFile file, @RequestParam(value="folderId",required=false) Integer folderId, HttpServletRequest request, HttpSession session) {
 		if (!file.isEmpty()) {
 			UserBean user = (UserBean) session.getAttribute("user");
 
@@ -226,10 +248,22 @@ public class FileController {
 				fileBean.setUploadtime(new Date());
 				fileBean.setFlag(1);
 				fileBean.setFilesize(filesize);
+				if(folderId!=null){
+					fileBean.setParentid(folderId);//父文件夹ID
+				}
+				fileBean.setUserId(user.getId());//上传者ID
 
 				fileBean.setFiletype(EnumFileType.getBySuffix(suffix));
 				logger.info("===>插入文件表：{}", fileBean);
-				fileService.uploadFile(fileBean, user);
+				
+				//当前文件夹为空代表在根目录上传，
+				if(folderId==null || folderId==0){
+					fileService.uploadFile(fileBean, user);
+				}else{
+					//如果在文件夹中上传，则不分配用户权限，只分配文件夹权限就够了，在新建文件夹的时候
+					fileDao.insertFile(fileBean);
+				}
+				
 
 				logger.info("===>上传成功: {}", fileBean);
 				return "1";
@@ -291,7 +325,18 @@ public class FileController {
 	@RequestMapping("delete")
 	@ResponseBody
 	public int delete(@RequestParam int fileId, HttpServletRequest request) {
+		logger.info("===>method delete fileId:{}", fileId);
 		FileBean f = fileDao.queryById(fileId);
+		
+		//如果是文件夹，判断是否存在子目录
+		if(f!=null && f.getFiletype() == EnumFileType.FOLFER){
+			List<FileBean> list = fileDao.searchFileListByFolder(fileId);
+			if(list!=null && list.size()>0){
+				//删除失败
+				return 2;
+			}
+		}
+		
 		String newFilepath = staticAccessPath + "deleted/";
 		String newFullpath = uploadFolder + "deleted/" + f.getFilename();
 

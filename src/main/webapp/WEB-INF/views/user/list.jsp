@@ -6,8 +6,7 @@
 <meta charset="UTF-8">
 <title>用户列表</title>
 </head>
-style="background: url('/static/assets1/img/login.png') center"
-<body style="background-image: url('../static/assets1/img/login.png');background-size: 150px">${userlist }
-
+<body style="background-image: url('../static/assets1/img/login.png');background-size: 150px">
+	${userlist }
 </body>
 </html>
