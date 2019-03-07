@@ -336,7 +336,7 @@ $(function(){
 		
 		function rename(folderId){
 			 var url = "<%=request.getContextPath()%>/folder/getFolder?folderId="+folderId;
-			 console.log(url);
+			 //console.log(url);
 			 $.ajax({
 				url : url,
 				type : 'POST',
