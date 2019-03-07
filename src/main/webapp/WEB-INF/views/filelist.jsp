@@ -263,7 +263,7 @@ $(function(){
                                     </c:if>
                                   </c:if>
                                   <c:if test="${from == 'download' and sessionScope.user.levelEnum.id ==1 }">
-                                    <a href="javascript:;" onclick="confirmDel(${file.id},'${file.filename }')" class="tpl-table-black-operation-del">
+                                    <a href="javascript:;" onclick="confirmDel(${file.id},'${file.remark }')" class="tpl-table-black-operation-del">
                                       <i class="am-icon-trash"></i>
                                       删除
                                     </a>

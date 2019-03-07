@@ -60,7 +60,7 @@
 								<form action="<%=request.getContextPath()%>/user/search" method="post">
 									<div class="am-u-sm-12 am-u-md-6 am-u-lg-6" style="">
 										<div class="am-form-group am-input-group-sm tpl-form-border-form cl-p">
-											文件名称：${file.filename}
+											文件名：${file.remark}
 											<input type="hidden" value="${file.id}" id="hiddeFileID">
 										</div>
 									</div>
