@@ -249,7 +249,11 @@ $(function(){
                                       重命名
                                     </a>
                                     </c:if>
+<<<<<<< HEAD
                                     <a href="javascript:;" onclick="confirmDel(${file.id},'${file.remark }')" class="tpl-table-black-operation-del">
+=======
+                                    <a href="javascript:;" onclick="confirmDel(${file.id},'${file.filename }')" class="tpl-table-black-operation-del">
+>>>>>>> branch 'master' of https://gitee.com/liuwei88212_admin/lw-oa.git
                                       <i class="am-icon-trash"></i>
                                       删除
                                     </a>
