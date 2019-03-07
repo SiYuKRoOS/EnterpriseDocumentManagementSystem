@@ -26,13 +26,13 @@
 	1. 文件夹支持重命名：amazeui modal confirm会重复提交，不支持remote远程请求，恶心，搞了几晚上
 	2. 重写 cancel/confirm 按钮的事件处理函数: http://amazeui.org/javascript/modal#
 	
-2019-3-7 计划
+2019-3-7
 	
-	1. 提取JSP共同代码块进行单独维护，权限抽离
+	1. 提取JSP共同代码块进行单独维护，权限抽离(文件列表部分已完成)
 	2. 考虑文件夹移动
 	3. SpringBoot之使用Druid连接池以及SQL监控和spring监控: https://www.cnblogs.com/shyroke/p/8045077.html
-	   druid不同版本，SQL监控会没有SQL打印
-	4. 
+	   druid不同版本，SQL监控会没有SQL打印(已完成)
+	4. 添加版权（已完成）
 
 #### 介绍
 项目由来：

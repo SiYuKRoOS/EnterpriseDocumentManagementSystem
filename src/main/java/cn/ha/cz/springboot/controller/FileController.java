@@ -83,6 +83,7 @@ public class FileController {
 			logger.info("==========return: filelist_mobile.jsp==========");
 			return "filelist_mobile";
 		}else {
+			logger.info("==========return: filelist.jsp==========");
 			return "filelist";
 		}
 	}
@@ -107,6 +108,7 @@ public class FileController {
 			logger.info("==========return: filelist_mobile.jsp==========");
 			return "filelist_mobile";
 		}else {
+			logger.info("==========return: filelist.jsp==========");
 			return "filelist";
 		}
 	}
@@ -168,6 +170,7 @@ public class FileController {
 			logger.info("==========filelist_mobile==========");
 			return "filelist_mobile";
 		}else {
+			logger.info("==========return: filelist.jsp==========");
 			return "filelist";
 		}
 	}
