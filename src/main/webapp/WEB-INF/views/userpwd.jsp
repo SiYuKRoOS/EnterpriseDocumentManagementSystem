@@ -90,6 +90,7 @@
 			</div>
 		</div>
 	</div>
+    <jsp:include page="footer.jsp" />
 	<script src="<%=request.getContextPath()%>/static/assets1/js/amazeui.min.js"></script>
 	<script src="<%=request.getContextPath()%>/static/assets1/js/amazeui.datatables.min.js"></script>
 	<script src="<%=request.getContextPath()%>/static/assets1/js/dataTables.responsive.min.js"></script>

@@ -221,6 +221,7 @@
 		</div>
 	</div>
 	</div>
+    <jsp:include page="footer.jsp" />
 	<script type="text/javascript">
 		function confirmDel(fileId, filename){
 			if(confirm('是否确认删除此文档？\n'+filename)){

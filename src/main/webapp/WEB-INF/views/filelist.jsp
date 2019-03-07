@@ -7,46 +7,7 @@
 
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>在线文档管理系统</title>
-<meta name="description" content="在线文档管理系统">
-<meta name="keywords" content="index">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;"/> -->
-<meta name="renderer" content="webkit">
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-<link rel="icon" type="image/png" href="<%=request.getContextPath()%>/static/assets1/i/favicon.png">
-<link rel="apple-touch-icon-precomposed" href="<%=request.getContextPath()%>/static/assets1/i/app-icon72x72@2x.png">
-<meta name="apple-mobile-web-app-title" content="在线文档管理系统" />
-<link rel="stylesheet" href="<%=request.getContextPath()%>/static/assets1/css/amazeui.min.css" />
-<link rel="stylesheet" href="<%=request.getContextPath()%>/static/assets1/css/amazeui.datatables.min.css" />
-<link rel="stylesheet" href="<%=request.getContextPath()%>/static/assets1/css/app.css">
-<script src="<%=request.getContextPath()%>/static/assets1/js/jquery.min.js"></script>
-<script type="text/javascript">
-$(function(){
-// 	$(".am-icon-search").click(function(){
-// 		filename = $("#filename").val();
-// 		filetype = $("#filetype").val();
-// 		alert(filename+","+filetype);
-// 	})
-})
-</script>
-<style type="text/css">
-.am-form-group:hover {
-	cursor: pointer;
-}
-
-.tpl-table-black-operation a {
-	width: 55px;
-}
-.tpl-table-black-operation a:HOVER {
- cursor: pointer;
-}
-</style>
-
-</head>
+<jsp:include page="include_head.jsp" />
 
 <body data-type="widgets">
   <script src="<%=request.getContextPath()%>/static/assets1/js/theme.js"></script>
@@ -126,44 +87,44 @@ $(function(){
                   <input id="fileUpload" type="file" name="file" multiplename="file" multiple style="display: none;" />
                 </form>
                 <script type="text/javascript">
-									$(function() {
-									    $('#uploadBtn').click(function(){
-									        $('#fileUpload').click();
-									    });
-
-										var uploading = false;
-										var imgFile = []; //存放文件
-										$("#fileUpload").on("change", function() {
-											if (uploading) {
-												alert("文件正在上传中，请稍候");
-												return false;
-											}
-											
-											$.ajax({
-												url : "<%=request.getContextPath()%>/file/upload",
-												type : 'POST',
-												data : new FormData($('#fileUploadForm')[0]), //单文件
-												//data: formData, //多文件
-												
-												processData : false,
-												contentType : false,
-												beforeSend : function() {
-													uploading = true;
-												},
-												success : function(data) {
-													if ("1" == data) {
-														alert("上传成功");
-													} else {
-														alert("上传失败");
-													}
-						
-													uploading = false;
-													window.location.reload();
-												}
-											});
-										});
-									});
-								</script>
+    				$(function() {
+    				    $('#uploadBtn').click(function(){
+    				        $('#fileUpload').click();
+    				    });
+    
+    					var uploading = false;
+    					var imgFile = []; //存放文件
+    					$("#fileUpload").on("change", function() {
+    						if (uploading) {
+    							alert("文件正在上传中，请稍候");
+    							return false;
+    						}
+    						
+    						$.ajax({
+    							url : "<%=request.getContextPath()%>/file/upload",
+    							type : 'POST',
+    							data : new FormData($('#fileUploadForm')[0]), //单文件
+    							//data: formData, //多文件
+    							
+    							processData : false,
+    							contentType : false,
+    							beforeSend : function() {
+    								uploading = true;
+    							},
+    							success : function(data) {
+    								if ("1" == data) {
+    									alert("上传成功");
+    								} else {
+    									alert("上传失败");
+    								}
+    	
+    								uploading = false;
+    								window.location.reload();
+    							}
+    						});
+    					});
+    				});
+    			</script>
               </div>
               <form action="<%=request.getContextPath() %>/file/search?from=${from}" method="post">
                 <div class="widget-body am-u-sm-12">
@@ -202,82 +163,7 @@ $(function(){
                         </tr>
                       </thead>
                       <tbody>
-                        <c:if test="${not empty filelist }">
-                          <c:forEach items="${filelist}" var="file" varStatus="s">
-                            <tr class="gradeX">
-                              <td class="am-text-middle">
-                                <span class="am-badge  am-round"> ${s.index+1 } </span>
-                              </td>
-                              <td class="am-text-middle" width="100">
-                                <span style="vertical-align: middle;"> <img src="<%=request.getContextPath() %>/static/assets1/img/file${file.filetype.id }.png" class="tpl-table-line-img" alt="${file.filetype.name }"> ${file.filetype.name }
-                                </span>
-                              </td>
-                              <td class="am-text-middle">
-                                <c:choose>
-                                  <c:when test="${file.filetype == EnumFileType.FOLFER }">
-                                    <a href="<%=request.getContextPath() %>/folder/viewFolder?folderId=${file.id}&from=${from}">${file.remark }</a>
-                                  </c:when>
-                                  <c:otherwise>
-                                    <a href="<%=request.getContextPath() %>${file.filepath}" title="点击下载${file.filename }">${file.filename }</a>
-                                  </c:otherwise>
-                                </c:choose>
-                              </td>
-                              <td class="am-text-middle">${file.filesize }</td>
-                              <td class="am-text-middle">${file.username }</td>
-                              <td class="am-text-middle">${file.uploadtime}</td>
-                              <td class="am-text-middle">
-                                <div class="tpl-table-black-operation">
-                                  <c:choose>
-                                    <c:when test="${file.filetype == EnumFileType.FOLFER }">
-                                      <a href="<%=request.getContextPath() %>/folder/viewFolder?folderId=${file.id}&from=${from}">
-                                        <i class="am-icon-folder-open"></i>
-                                        查看
-                                      </a>
-                                    </c:when>
-                                    <c:otherwise>
-                                      <a href="<%=request.getContextPath() %>/file/download?fileId=${file.id}">
-                                        <i class="am-icon-download"></i>
-                                        下载
-                                      </a>
-                                    </c:otherwise>
-                                  </c:choose>
-
-                                  <c:if test="${from == 'upload'}">
-                                    <c:if test="${file.filetype == EnumFileType.FOLFER}">
-                                    <a data-toggle='modal' data-target='#rename-prompt' onclick="rename(${file.id})" style="width: 68px">
-                                      <i class="am-icon-edit"></i>
-                                      重命名
-                                    </a>
-                                    </c:if>
-                                    <a href="javascript:;" onclick="confirmDel(${file.id},'${file.remark }')" class="tpl-table-black-operation-del">
-                                      <i class="am-icon-trash"></i>
-                                      删除
-                                    </a>
-
-                                    <!-- 管理员才能分配权限 -->
-                                    <c:if test="${sessionScope.user.levelEnum.id < 3 }">
-                                      <a href="<%=request.getContextPath() %>/file/toAuthUser?fileId=${file.id}">
-                                        <i class="am-icon-share-alt"></i>
-                                        权限
-                                      </a>
-                                    </c:if>
-                                  </c:if>
-                                  <c:if test="${from == 'download' and sessionScope.user.levelEnum.id ==1 }">
-                                    <a href="javascript:;" onclick="confirmDel(${file.id},'${file.remark }')" class="tpl-table-black-operation-del">
-                                      <i class="am-icon-trash"></i>
-                                      删除
-                                    </a>
-                                  </c:if>
-                                </div>
-                              </td>
-                            </tr>
-                          </c:forEach>
-                        </c:if>
-                        <c:if test="${empty filelist }">
-                          <tr>
-                            <td colspan="6">没有数据</td>
-                          </tr>
-                        </c:if>
+                        <jsp:include page="filelist_body.jsp" />
                         <!-- more data -->
                       </tbody>
                     </table>
@@ -370,17 +256,8 @@ $(function(){
 		}
 		
 	</script>
-  <!--[if (gte IE 9)|!(IE)]><!-->
-  <script src="<%=request.getContextPath()%>/static/assets1/js/jquery.min.js"></script>
-  <!--<![endif]-->
-  <!--[if lte IE 8 ]>
-		<script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
-		<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
-		<script src="<%=request.getContextPath()%>/static/assets1/js/amazeui.ie8polyfill.min.js"></script>
-	<![endif]-->
-
-  <script src="<%=request.getContextPath()%>/static/assets1/js/amazeui.min.js"></script>
-  <script src="<%=request.getContextPath()%>/static/assets1/js/app.js"></script>
-
+  <jsp:include page="include_footer.jsp" />
+  
+  <jsp:include page="footer.jsp" />
 </body>
 </html>
