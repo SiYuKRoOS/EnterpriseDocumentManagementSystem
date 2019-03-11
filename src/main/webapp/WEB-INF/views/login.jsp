@@ -5,8 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>在线文档管理系统</title>
-<meta name="description"
-  content="在线文档管理系统>
+<meta name="description" content="在线文档管理系统">
 <meta name="keywords" content="在线文档管理系统">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" >
 <meta name="renderer" content="webkit">
@@ -17,15 +16,14 @@
 <meta name="apple-mobile-web-app-title" content="Amaze UI" />
 <link rel="stylesheet" href="<%=request.getContextPath()%>/static/assets1/css/amazeui.min.css" />
 <link rel="stylesheet" href="<%=request.getContextPath()%>/static/assets1/css/amazeui.datatables.min.css" />
-<link rel="stylesheet" href="<%=request.getContextPath()%>/static/assets1/css/app.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/static/assets1/css/app.css" />
 <script src="<%=request.getContextPath()%>/static/assets1/js/jquery.min.js"></script>
 <script src="<%=request.getContextPath()%>/static/assets1/js/jquery.cookie.js"></script>
 <script type="text/javascript">
 	$(function(){
 		 var rem = $.cookie('remember');
          if(rem){
-             $("
-  #remember-me").prop("checked",true);
+             $("#remember-me").prop("checked",true);
              $("#username").val($.cookie("username"));
              $("#password").val($.cookie("password"));
          }
@@ -40,8 +38,7 @@
 		})
 	})
 	
-	function
-  addCookie(){
+	function addCookie(){
 		 var username=$( "#username").val();
          var password=$( "#password").val();
          console.log("addCookie: "+username+", "+password);
@@ -52,8 +49,7 @@
 	}
 	
 	
-	function
-  expireCookie(){
+	function expireCookie(){
 		 console.log("expireCookie");
 		 $.cookie("remember","false",{expires:-1});
          $.cookie("username","",{ expires:-1 });
@@ -65,9 +61,9 @@
 		if(checked){
 			addCookie();
 		}
-		returntrue;
+		return true;
 	}
-
+ 
 
 </script>
 </head>
@@ -75,7 +71,7 @@
   <script src="<%=request.getContextPath()%>/static/assets1/js/theme.js"></script>
   <div class="am-g tpl-g">
     <div class="tpl-login">
-      <div class="tpl-login-content" style="margin: 8% auto 0">
+      <div class="tpl-login-content" style="margin: 3% auto 0">
         <div class="tpl-login-logo" style="background-image: url('<%=request.getContextPath()%>/static/assets1/img/login2.png');background-size: 130px"></div>
         <form class="am-form tpl-form-line-form" action="<%=request.getContextPath()%>/login/dologin" method="post" onsubmit="return rememberMe()">
           <div class="am-form-group">
@@ -110,7 +106,7 @@
 	position: fixed; left : 0px;
 	bottom: 0px;
 	width: 100%;
-	height: 130px;
+	height: 120px;
 	left: 0px;
 }
 -->
