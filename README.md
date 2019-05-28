@@ -12,7 +12,7 @@ Springboot 1.5.10 + JdbcTemplate + Mybatis + Amazeui + MySQL + KKfilePreview + W
 
 1. Maven Command：maven package
 2. cmd：java -jar lw-springboot-oa-1.0-SNAPSHOT.war
-3. Project log：C:/logs/lw-oa/lw-oa.log
+3. Project log：log4j
 
 ### in the later days, this project is going to get richer and add utility functions.
 
